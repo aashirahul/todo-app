@@ -7,6 +7,8 @@ class TaskController {
 	* index (request,response){
 		let userId = request.param('id')
 		let listId = request.param("listId")
+		let tasks = yield Task.query().where('todo_list_id',listId).fetch()
+		response.json(tasks)
 
 	}
 
