@@ -17,17 +17,26 @@ class TaskController {
 		let listId = request.param("listId")
 		let data = request.all()
 		data.todo_list_id = listId
-		console.log(data);
 		let task = yield Task.create(data)
 		response.status(201).json(task)
 		
 
 	}
 	* erase (request,response){
+		let taskId = request.param("taskId")
+		let task = yield Task.findBy('id',taskId)
+		yield task.delete()
+		response.status(200)
+
 
 	}
 	* update (request,response){
-
+		let taskId = request.param("taskId")
+		let task = yield Task.findBy('id',taskId)
+		let data = request.all()
+		task.fill(data)
+		yield task.save()
+		response.status(200).json(task)
 	}
 
 
